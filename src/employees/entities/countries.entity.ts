@@ -9,6 +9,6 @@ export class Countries {
   country_name: string;
 
   @OneToOne(() => Regions)
-  @JoinColumn()
+  @JoinColumn({ name: 'region_id' })
   region_id: Regions;
 }

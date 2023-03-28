@@ -7,8 +7,6 @@ import { JobHistory } from '../entities/job_history.entity';
 @Injectable()
 export class EmployeesService {
   constructor(
-    @InjectRepository(JobHistory)
-    private readonly historyRepository: Repository<JobHistory>,
     @InjectRepository(Employees)
     private readonly employeeRepository: Repository<Employees>,
   ) {}

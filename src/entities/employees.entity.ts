@@ -33,13 +33,9 @@ export class Employees {
   @Column()
   commission_pct: number;
 
-  @OneToOne(() => Employees)
-  @JoinColumn({ name: 'manager_id' })
-  manager: Employees;
-
-  @OneToOne(() => Departments)
+  @OneToMany(() => Departments, (department) => department.manager)
   @JoinColumn({ name: 'department_id' })
-  department: Departments;
+  department: Departments[];
   
   @OneToMany(() => JobHistory, (jobHistory) => jobHistory.employee)
   jobHistory: JobHistory[];

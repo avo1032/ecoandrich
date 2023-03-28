@@ -18,8 +18,7 @@ export class Departments {
   @Column()
   department_name: string;
 
-  @OneToOne(() => Employees)
-  @JoinColumn({ name: 'manager_id' })
+  @OneToMany(() => Employees, (employee) => employee.department)
   manager: Employees;
 
   @OneToOne(() => Locations)

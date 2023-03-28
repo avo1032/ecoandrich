@@ -11,10 +11,10 @@ export class Departments {
   department_name: string;
 
   @OneToOne(() => Employees)
-  @JoinColumn()
-  manager_id: Employees;
+  @JoinColumn({ name: 'manager_id' })
+  manager: Employees;
 
   @OneToOne(() => Locations)
-  @JoinColumn()
-  location_id: Locations;
+  @JoinColumn({ name: 'location_id' })
+  location: Locations;
 }

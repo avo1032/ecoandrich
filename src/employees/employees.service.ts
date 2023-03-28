@@ -16,6 +16,7 @@ export class EmployeesService {
   async getEmployeeById(employee_id: number) {
     const employee = await this.employeeRepository.findOne({
       where: { employee_id },
+      relations: ['job', 'manager', 'department']
     });
 
     return employee;

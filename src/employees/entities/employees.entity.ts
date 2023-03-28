@@ -23,8 +23,8 @@ export class Employees {
   hire_date: Date;
 
   @OneToOne(() => Jobs)
-  @JoinColumn()
-  job_id: Jobs;
+  @JoinColumn({ name: 'job_id' })
+  job: Jobs;
 
   @Column()
   salary: number;
@@ -33,10 +33,10 @@ export class Employees {
   commission_pct: number;
 
   @OneToOne(() => Employees)
-  @JoinColumn()
-  manager_id: Employees;
+  @JoinColumn({ name: 'manager_id' })
+  manager: Employees;
 
   @OneToOne(() => Departments)
-  @JoinColumn()
-  department_id: Departments;
+  @JoinColumn({ name: 'department_id' })
+  department: Departments;
 }

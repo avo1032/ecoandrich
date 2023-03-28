@@ -14,10 +14,10 @@ export class JobHistory {
   end_date: Date;
 
   @OneToOne(() => Jobs)
-  @JoinColumn()
-  job_id: Jobs;
+  @JoinColumn({ name: 'job_id' })
+  job: Jobs;
 
   @OneToOne(() => Departments)
-  @JoinColumn()
-  department_id: Departments;
+  @JoinColumn({ name: 'department_id' })
+  department: Departments;
 }

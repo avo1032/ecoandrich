@@ -19,6 +19,6 @@ export class Locations {
   state_province: string;
 
   @OneToOne(() => Countries)
-  @JoinColumn()
-  country_id: Countries;
+  @JoinColumn({ name: 'country_id' })
+  country: Countries;
 }

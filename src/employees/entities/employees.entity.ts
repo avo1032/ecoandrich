@@ -1,37 +1,42 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Departments } from './departments.entity';
+import { Jobs } from './jobs.entity';
 
 @Entity({ name: 'employees' })
 export class Employees {
-    @PrimaryColumn()
-    employee_id: number;
+  @PrimaryColumn()
+  employee_id: number;
 
-    @Column()
-    first_name: string;
+  @Column()
+  first_name: string;
 
-    @Column()
-    last_name: string;
+  @Column()
+  last_name: string;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Column()
-    phone_number: string;
+  @Column()
+  phone_number: string;
 
-    @Column()
-    hire_date: Date;
+  @Column()
+  hire_date: Date;
 
-    @Column()
-    job_id: string;
+  @OneToOne(() => Jobs)
+  @JoinColumn()
+  job_id: Jobs;
 
-    @Column()
-    salary: number;
+  @Column()
+  salary: number;
 
-    @Column()
-    commission_pct: number;
+  @Column()
+  commission_pct: number;
 
-    @Column()
-    manager_id: number;
+  @OneToOne(() => Employees)
+  @JoinColumn()
+  manager_id: Employees;
 
-    @Column()
-    department_id: number;
+  @OneToOne(() => Departments)
+  @JoinColumn()
+  department_id: Departments;
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Countries } from './countries.entity';
 
 @Entity({ name: 'locations' })
 export class Locations {
@@ -17,6 +18,7 @@ export class Locations {
   @Column()
   state_province: string;
 
-  @Column()
-  country_id: string;
+  @OneToOne(() => Countries)
+  @JoinColumn()
+  country_id: Countries;
 }

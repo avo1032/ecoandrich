@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Employees } from './employees.entity';
+import { Locations } from './locations.entity';
 
 @Entity({ name: 'departments' })
 export class Departments {
@@ -8,9 +10,11 @@ export class Departments {
   @Column()
   department_name: string;
 
-  @Column()
-  manager_id: number;
+  @OneToOne(() => Employees)
+  @JoinColumn()
+  manager_id: Employees;
 
-  @Column()
-  location_id: number;
+  @OneToOne(() => Locations)
+  @JoinColumn()
+  location_id: Locations;
 }

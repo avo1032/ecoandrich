@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Departments } from './departments.entity';
+import { Jobs } from './jobs.entity';
 
 @Entity({ name: 'job_history' })
 export class JobHistory {
@@ -11,9 +13,11 @@ export class JobHistory {
   @Column()
   end_date: Date;
 
-  @Column()
-  job_id: string;
+  @OneToOne(() => Jobs)
+  @JoinColumn()
+  job_id: Jobs;
 
-  @Column()
-  department_id: number;
+  @OneToOne(() => Departments)
+  @JoinColumn()
+  department_id: Departments;
 }

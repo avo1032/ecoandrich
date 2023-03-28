@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryColumn,
@@ -21,7 +22,7 @@ export class Departments {
   @OneToMany(() => Employees, (employee) => employee.department)
   manager: Employees;
 
-  @OneToOne(() => Locations)
+  @ManyToOne(() => Locations, (location) => location.department)
   @JoinColumn({ name: 'location_id' })
   location: Locations;
 

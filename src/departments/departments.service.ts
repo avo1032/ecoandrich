@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Departments } from 'src/entities/departments.entity';
 import { Repository } from 'typeorm';
@@ -13,7 +13,12 @@ export class DepartmentsService {
   async getDepartmentById(department_id: number) {
     const department = await this.departmentRepository.findOne({
       where: { department_id },
+      relations: ['location'],
     });
+
+    if (!department) {
+      throw new BadRequestException('해당하는 부서정보가 존재하지 않습니다.');
+    }
 
     return department;
   }

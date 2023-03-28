@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 import { Departments } from './departments.entity';
+import { Employees } from './employees.entity';
 import { Jobs } from './jobs.entity';
 
 @Entity({ name: 'job_history' })
@@ -17,7 +18,11 @@ export class JobHistory {
   @JoinColumn({ name: 'job_id' })
   job: Jobs;
 
-  @OneToOne(() => Departments)
+  @ManyToOne(() => Departments, (department) => department.jobHistory)
   @JoinColumn({ name: 'department_id' })
   department: Departments;
+
+  @ManyToOne(() => Employees, (employee) => employee.jobHistory)
+  @JoinColumn({ name: 'employee_id' })
+  employee: Employees;
 }

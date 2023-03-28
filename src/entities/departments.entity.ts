@@ -1,5 +1,13 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { Employees } from './employees.entity';
+import { JobHistory } from './job_history.entity';
 import { Locations } from './locations.entity';
 
 @Entity({ name: 'departments' })
@@ -17,4 +25,7 @@ export class Departments {
   @OneToOne(() => Locations)
   @JoinColumn({ name: 'location_id' })
   location: Locations;
+
+  @OneToMany(() => JobHistory, (jobHistory) => jobHistory.department)
+  jobHistory: JobHistory[];
 }

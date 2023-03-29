@@ -6,7 +6,10 @@ import {
   ParseIntPipe,
   Patch,
 } from '@nestjs/common';
-import { IncreaseSalaryByDepartmentDto } from './dto/employees.dto';
+import {
+  IncreaseSalaryByDepartmentDto,
+  UpdateEmployeeDto,
+} from './dto/employees.dto';
 import { EmployeesService } from './employees.service';
 
 @Controller('employees')
@@ -28,7 +31,17 @@ export class EmployeesController {
   }
 
   @Patch('increase-salary')
-  async increaseSalaryByDepartment(@Body() body: IncreaseSalaryByDepartmentDto) {
+  async increaseSalaryByDepartment(
+    @Body() body: IncreaseSalaryByDepartmentDto,
+  ) {
     return this.employeeService.increaseSalaryByDepartment(body);
+  }
+
+  @Patch(':employee_id')
+  async updateEmployee(
+    @Param('employee_id', ParseIntPipe) employee_id: number,
+    @Body() body: UpdateEmployeeDto,
+  ) {
+    return this.employeeService.updateEmployee(body, employee_id);
   }
 }

@@ -1,4 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { Departments } from './departments.entity';
 import { Jobs } from './jobs.entity';
 import { JobHistory } from './job_history.entity';
@@ -33,10 +42,14 @@ export class Employees {
   @Column()
   commission_pct: number;
 
+  @ManyToOne(() => Employees, (employee) => employee.manager)
+  @JoinColumn({ name: 'manager_id' })
+  manager: Employees;
+
   @ManyToOne(() => Departments, (department) => department.employees)
   @JoinColumn({ name: 'department_id' })
-  department: Departments[];
-  
+  department: Departments;
+
   @OneToMany(() => JobHistory, (jobHistory) => jobHistory.employee)
   jobHistory: JobHistory[];
 }

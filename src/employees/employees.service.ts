@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employees } from '../entities/employees.entity';
 import { JobHistory } from '../entities/job_history.entity';
+import { IncreaseSalaryByDepartmentDto } from './dto/employees.dto';
 
 @Injectable()
 export class EmployeesService {
@@ -35,5 +36,29 @@ export class EmployeesService {
     }
 
     return employee;
+  }
+
+  async increaseSalaryByDepartment(body: IncreaseSalaryByDepartmentDto) {
+    const { department_id, salaryIncreasePercentage } = body;
+
+    const employeesBeforeUpdate = await this.employeeRepository.find({
+      where: { department: { department_id } },
+    });
+
+    const employeesAfterUpdate = await Promise.all(
+      employeesBeforeUpdate.map(async (employee) => {
+        const updatedSalary = Math.round(
+          employee.salary * (1 + salaryIncreasePercentage / 100),
+        );
+        const updatedEmployee = { ...employee, salary: updatedSalary };
+        await this.employeeRepository.save(updatedEmployee);
+        return updatedEmployee;
+      }),
+    );
+
+    return {
+      beforeUpdate: employeesBeforeUpdate,
+      afterUpdate: employeesAfterUpdate,
+    };
   }
 }

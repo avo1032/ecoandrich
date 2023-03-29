@@ -28,4 +28,7 @@ export class Departments {
 
   @OneToMany(() => JobHistory, (jobHistory) => jobHistory.department)
   jobHistory: JobHistory[];
+
+  @OneToMany(() => Employees, (employee) => employee.department)
+  employees: Employees[];
 }

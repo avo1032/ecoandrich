@@ -12,10 +12,13 @@ export class AppService {
 
   async getExchangeRateInfo(keyword: string) {
     const url = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${process.env.DATA_SECRET_KEY}&data=AP01`;
-    console.log(keyword)
+
     try {
       const response = await this.httpService.axiosRef.get(url);
-      const data = response.data;
+      let data = response.data;
+      if (!!keyword) {
+        data = data.filter((data) => data.cur_nm.includes(keyword));
+      }
       let result = data.map((data) => {
         return {
           '국가/통화명': data.cur_nm,
@@ -23,6 +26,7 @@ export class AppService {
           '전신환(송금)보내실때': data.tts,
         };
       });
+      return result;
     } catch (error) {
       throw new Error(error);
     }

@@ -72,7 +72,7 @@ export class EmployeesService {
   }
 
   async updateEmployee(body: UpdateEmployeeDto, employee_id: number) {
-    const { job_id, department_id, ...rest } = body;
+    const { job_id, department_id, manager_id, ...rest } = body;
 
     const employee = await this.employeeRepository.findOne({
       where: { employee_id },
@@ -84,6 +84,12 @@ export class EmployeesService {
     }
 
     Object.assign(employee, rest);
+
+    if (manager_id) {
+      employee.manager = await this.employeeRepository.findOne({
+        where: { employee_id: manager_id },
+      });
+    }
 
     if (job_id) {
       employee.job = await this.jobsRepository.findOne({ where: { job_id } });

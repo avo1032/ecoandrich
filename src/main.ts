@@ -10,8 +10,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TimeoutInterceptor(), new SuccessInterceptor());
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Ecoandrich Back-end assignment')
+    .setDescription('에코앤리치 코딩과제 API Docs')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

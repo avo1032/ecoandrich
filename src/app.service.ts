@@ -37,7 +37,9 @@ export class AppService {
       let result;
 
       if (!!keyword) {
-        startData = startData.filter((data) => data.cur_nm.includes(keyword));
+        if (!!startData) {
+          startData = startData.filter((data) => data.cur_nm.includes(keyword));
+        }
         endData = endData.filter((data) => data.cur_nm.includes(keyword));
       }
       if (!!startDate) {

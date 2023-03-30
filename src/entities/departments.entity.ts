@@ -19,10 +19,10 @@ export class Departments {
   @Column()
   department_name: string;
 
-  @OneToMany(() => Employees, (employee) => employee.department)
+  @ManyToOne(() => Employees, (employee) => employee.department)
   manager: Employees;
 
-  @ManyToOne(() => Locations, (location) => location.department)
+  @ManyToOne(() => Locations)
   @JoinColumn({ name: 'location_id' })
   location: Locations;
 

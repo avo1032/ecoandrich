@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryColumn,
@@ -26,10 +27,7 @@ export class Locations {
   @Column()
   state_province: string;
 
-  @OneToOne(() => Countries)
+  @ManyToOne(() => Countries)
   @JoinColumn({ name: 'country_id' })
   country: Countries;
-
-  @OneToMany(() => Departments, (department) => department.location)
-  department: Departments[];
 }

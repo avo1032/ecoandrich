@@ -22,9 +22,10 @@ export class EmployeesService {
   ) {}
 
   async getEmployeeById(employee_id: number) {
+    console.log(1)
     const employee = await this.employeeRepository.findOne({
       where: { employee_id },
-      relations: ['job', 'manager', 'department'],
+      relations: ['job', 'department', 'manager'],
     });
 
     if (!employee) {

@@ -42,8 +42,8 @@ export class Employees {
   @Column()
   commission_pct: number;
 
-  @ManyToOne(() => Employees, (employee) => employee.manager)
-  @JoinColumn({ name: 'manager_id' })
+  @ManyToOne(() => Employees)
+  @JoinColumn({ name: 'manager_id', referencedColumnName: 'employee_id' })
   manager: Employees;
 
   @ManyToOne(() => Departments, (department) => department.employees)

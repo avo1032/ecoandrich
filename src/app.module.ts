@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { EmployeesModule } from './employees/employees.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { HttpModule } from '@nestjs/axios';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { HttpModule } from '@nestjs/axios';
     EmployeesModule,
     DepartmentsModule,
     HttpModule,
+    LocationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

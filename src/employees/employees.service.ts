@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Departments } from 'src/entities/departments.entity';
 import { Jobs } from 'src/entities/jobs.entity';
@@ -19,10 +19,11 @@ export class EmployeesService {
     private readonly departmentsRepository: Repository<Departments>,
     @InjectRepository(Jobs)
     private readonly jobsRepository: Repository<Jobs>,
+    @InjectRepository(JobHistory)
+    private readonly jobHistoryRepository: Repository<JobHistory>,
   ) {}
 
   async getEmployeeById(employee_id: number) {
-    console.log(1)
     const employee = await this.employeeRepository.findOne({
       where: { employee_id },
       relations: ['job', 'department', 'manager'],
@@ -36,16 +37,16 @@ export class EmployeesService {
   }
 
   async getHistoryByEmployeeId(employee_id: number) {
-    const employee = await this.employeeRepository.findOne({
+    const history = await this.jobHistoryRepository.find({
       where: { employee_id },
-      relations: ['jobHistory'],
+      relations: ['job', 'department'],
     });
 
-    if (!employee) {
-      throw new BadRequestException('해당하는 사원정보가 존재하지 않습니다.');
+    if(!history.length) {
+      throw new BadRequestException('이력정보가 존재하지 않습니다.')
     }
 
-    return employee;
+    return history;
   }
 
   async increaseSalaryByDepartment(body: IncreaseSalaryByDepartmentDto) {

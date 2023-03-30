@@ -21,8 +21,4 @@ export class JobHistory {
   @ManyToOne(() => Departments, (department) => department.jobHistory)
   @JoinColumn({ name: 'department_id' })
   department: Departments;
-
-  @ManyToOne(() => Employees, (employee) => employee.jobHistory)
-  @JoinColumn({ name: 'employee_id' })
-  employee: Employees;
 }

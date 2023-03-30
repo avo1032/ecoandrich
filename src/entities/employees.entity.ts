@@ -49,7 +49,4 @@ export class Employees {
   @ManyToOne(() => Departments, (department) => department.employees)
   @JoinColumn({ name: 'department_id' })
   department: Departments;
-
-  @OneToMany(() => JobHistory, (jobHistory) => jobHistory.employee)
-  jobHistory: JobHistory[];
 }

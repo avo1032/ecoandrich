@@ -14,4 +14,10 @@ export class DepartmentsController {
   ) {
     return await this.departmentService.getDepartmentById(department_id);
   }
+
+  @ApiOperation({ summary: '모든 부서정보 조회' })
+  @Get()
+  async getAllDepartments() {
+    return await this.departmentService.getAllDepartments();
+  }
 }

@@ -13,7 +13,7 @@ export class DepartmentsService {
   async getDepartmentById(department_id: number) {
     const department = await this.departmentRepository.findOne({
       where: { department_id },
-      relations: ['location'],
+      relations: ['location', 'employees', 'jobHistory'],
     });
 
     if (!department) {
@@ -21,5 +21,13 @@ export class DepartmentsService {
     }
 
     return department;
+  }
+
+  async getAllDepartments() {
+    const departments = await this.departmentRepository.find({
+      relations: ['location', 'employees', 'jobHistory'],
+    });
+
+    return departments;
   }
 }
